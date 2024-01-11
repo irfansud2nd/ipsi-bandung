@@ -5,15 +5,17 @@ import InputSelect from "@/components/inputs/InputSelect";
 import InputText from "@/components/inputs/InputText";
 import InputTextArea from "@/components/inputs/InputTextArea";
 import {
-  PesertaState,
   jenisKelaminPeserta,
   jenisPertandingan,
   pesertaInitialValue,
   pesertaValidationSchema,
   tingkatanKategori,
-} from "@/utils/form/pesertaConstants";
-import { calculateAge, sendPeserta } from "@/utils/form/pesertaFunctions";
-import { Form, Formik, FormikValues } from "formik";
+} from "@/utils/form/peserta/pesertaConstants";
+import {
+  calculateAge,
+  sendPeserta,
+} from "@/utils/form/peserta/pesertaFunctions";
+import { Form, Formik } from "formik";
 import React from "react";
 
 const FormPeserta = () => {

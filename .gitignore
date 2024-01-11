@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+ipsi-bandung-firebase-adminsdk-of7zr-a29765f243.json
 
 # vercel
 .vercel

@@ -1,5 +1,14 @@
+import { storage } from "@/utils/firebase/firebase";
+import {
+  StorageError,
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { Id, toast } from "react-toastify";
 
+// CONTROL TOAST
 export const controlToast = (
   message: string,
   ref: React.MutableRefObject<Id | null>,
@@ -37,4 +46,17 @@ export const controlToast = (
       }
     }
   }
+};
+
+//COMPARE FOR DATA SORTER
+export const compare = (query: string, type: "asc" | "desc") => {
+  return (a: any, b: any) => {
+    if (a[query] < b[query]) {
+      return type == "asc" ? -1 : 1;
+    }
+    if (a[query] > b[query]) {
+      return type == "asc" ? 1 : -1;
+    }
+    return 0;
+  };
 };

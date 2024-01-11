@@ -1,12 +1,6 @@
-import { firestore } from "@/utils/firebase";
-import { PesertaState } from "@/utils/form/pesertaConstants";
-import {
-  DocumentReference,
-  FirestoreError,
-  collection,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { firestore } from "@/utils/firebase/firebase";
+import { PesertaState } from "@/utils/form/peserta/pesertaConstants";
+import { FirestoreError, doc, setDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 export const GET = async (req: Request) => {

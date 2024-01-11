@@ -1,7 +1,6 @@
 "use client";
 import {
   decrement,
-  increment,
   incrementByAmount,
 } from "@/utils/redux/counter/counterSlice";
 import { RootState } from "@/utils/redux/store";

@@ -5,15 +5,17 @@ import { Provider } from "react-redux";
 import { store } from "@/utils/redux/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import GetData from "./GetData";
+import FormKontingen from "./kontingen/FormKontingen";
+import FormOfficial from "./official/FormOfficial";
 
 const Pendaftaran = () => {
   return (
     <Provider store={store}>
       <div>
-        <ToastContainer />
-        <GetData />
-        <FormPeserta />
+        {/* <ToastContainer /> */}
+        {/* <FormPeserta /> */}
+        {/* <FormKontingen /> */}
+        {/* <FormOfficial /> */}
       </div>
     </Provider>
   );

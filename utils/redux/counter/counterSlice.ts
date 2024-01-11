@@ -4,7 +4,7 @@ type CounterState = {
   value: number;
 };
 
-const initialState = {
+const initialState: CounterState = {
   value: 0,
 };
 

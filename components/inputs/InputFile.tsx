@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ErrorText from "../typograpghy/ErrorText";
 import { controlToast } from "@/utils/shared/functions";
 import { Id } from "react-toastify";
-import { PesertaState } from "@/utils/form/pesertaConstants";
+import { PesertaState } from "@/utils/form/peserta/pesertaConstants";
 
 type InputFileProps = {
   label: string;

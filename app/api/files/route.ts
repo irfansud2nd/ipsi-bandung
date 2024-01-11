@@ -1,4 +1,4 @@
-import { storage } from "@/utils/firebase";
+import { storage } from "@/utils/firebase/firebase";
 import {
   StorageError,
   deleteObject,
