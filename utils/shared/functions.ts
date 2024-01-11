@@ -1,11 +1,3 @@
-import { storage } from "@/utils/firebase/firebase";
-import {
-  StorageError,
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from "firebase/storage";
 import { Id, toast } from "react-toastify";
 
 // CONTROL TOAST

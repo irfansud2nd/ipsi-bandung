@@ -1,7 +1,5 @@
-import { compare } from "@/utils/shared/functions";
-import { promises as fs } from "fs";
 import TabelJuara from "./TabelJuara";
-import { date } from "yup";
+import { juaraUmum } from "@/utils/data/juaraUmum";
 
 export type KontingenScore = {
   idKontingen: string;
@@ -19,12 +17,8 @@ export type KontingenScore = {
   dewasaPerunggu: number;
 };
 
-export default async function JuaraUmum({ eventId }: { eventId: string }) {
-  const file = await fs.readFile(
-    process.cwd() + "/utils/data/juaraUmum.json",
-    "utf8"
-  );
-  const data: KontingenScore[] = JSON.parse(file).juaraUmum[eventId];
+export default function JuaraUmum({ eventId }: { eventId: string }) {
+  const data: KontingenScore[] = juaraUmum[eventId];
   return (
     <div>
       <h1 className="font-bold text-2xl">
