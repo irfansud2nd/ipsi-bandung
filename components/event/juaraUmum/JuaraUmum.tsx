@@ -1,3 +1,4 @@
+import NotFound from "@/app/not-found";
 import TabelJuara from "./TabelJuara";
 import { juaraUmum } from "@/utils/data/juaraUmum";
 
@@ -19,6 +20,7 @@ export type KontingenScore = {
 
 export default function JuaraUmum({ eventId }: { eventId: string }) {
   const data: KontingenScore[] = juaraUmum[eventId];
+  if (!data) return <NotFound />;
   return (
     <div>
       <h1 className="font-bold text-2xl">
