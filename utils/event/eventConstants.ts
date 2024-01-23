@@ -1,31 +1,45 @@
 type Event = {
-  name: string;
+  id: string;
+  title: string;
   status: "ended" | "upcoming" | "open register" | "close register";
   eventDate: {
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
   };
   registerDate: {
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
+  };
+  location: {
+    name: string;
+    link: string;
   };
   registerLink: string;
-  championLink?: string;
-  registeredPesertas?: number;
+  championLink?: boolean;
+  registeredPesertas: "dynamic" | number;
+  editOnly: boolean;
 };
 
 export const events: Event[] = [
   {
-    name: "Portue Silat Bandung Championship 2023",
+    id: "portue-23",
+    title: "PORTUE Silat Bandung Championship 2023",
     status: "ended",
     eventDate: {
-      start: new Date("2023-23-10"),
-      end: new Date("2023-26-10"),
+      start: "2023-11-23",
+      end: "2023-11-26",
     },
     registerDate: {
-      start: new Date(),
-      end: new Date(),
+      start: "2023-9-20",
+      end: "2023-11-23",
+    },
+    location: {
+      link: "https://goo.gl/maps/CLbG5HzMxTNuxnoH7",
+      name: "Sport Jabar, Arcamanik, Kota Bandung",
     },
     registerLink: "/event/portue-2023",
+    registeredPesertas: 1700,
+    championLink: true,
+    editOnly: false,
   },
 ];
