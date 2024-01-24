@@ -1,5 +1,6 @@
 import { Id, toast } from "react-toastify";
 import { string } from "yup";
+import { events } from "../event/eventConstants";
 
 // CONTROL TOAST
 export const controlToast = (
@@ -63,4 +64,10 @@ export const generateTanggal = (
   return `${date.getDate()} ${date.toLocaleString("id", {
     month: shortMonth ? "short" : "long",
   })} ${date.getFullYear()}`;
+};
+
+// GET EVENT TITLE
+
+export const getEventTitle = (eventId: string) => {
+  return events[events.findIndex((event) => event.id == eventId)].title;
 };

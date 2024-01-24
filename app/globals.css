@@ -13,6 +13,11 @@
   .input_group {
     @apply flex flex-col;
   }
+
+  .btn_gray {
+    @apply rounded-full px-2 bg-gray-500 text-white border-2 border-gray-500 hover:bg-transparent hover:text-gray-500 transition-all;
+  }
+
   /* INPUT FILE */
   .input_file,
   .input_file_landscape {
@@ -44,5 +49,10 @@
   }
   tbody > td {
     @apply whitespace-nowrap;
+  }
+
+  /* TYPOGRAPHY */
+  .page_title {
+    @apply font-bold text-2xl;
   }
 }

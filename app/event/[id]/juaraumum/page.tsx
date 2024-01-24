@@ -1,5 +1,6 @@
 import JuaraUmum from "@/components/event/juaraUmum/JuaraUmum";
 import { events } from "@/utils/event/eventConstants";
+import { getEventTitle } from "@/utils/shared/functions";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -7,15 +8,20 @@ export async function generateMetadata({
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const eventTitle =
-    events[events.findIndex((event) => event.id == params.id)].title;
   return {
-    title: `Rekapitulasi Perolehan Medali ${eventTitle}`,
+    title: `Rekapitulasi Perolehan Medali ${getEventTitle(params.id)}`,
     description: "Rekapitulasi Perolehan Medali - IPSI Kota Bandung",
   };
 }
 
 const page = ({ params }: { params: { id: string } }) => {
-  return <JuaraUmum eventId={params.id} />;
+  return (
+    <>
+      <h1 className="page_title">
+        Rekapituasi Perolehan Medali - {getEventTitle(params.id)}
+      </h1>
+      <JuaraUmum eventId={params.id} />
+    </>
+  );
 };
 export default page;
