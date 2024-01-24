@@ -24,7 +24,7 @@ export const events: Event[] = [
   {
     id: "portue-23",
     title: "PORTUE Silat Bandung Championship 2023",
-    status: "ended",
+    status: "open register",
     eventDate: {
       start: "2023-11-23",
       end: "2023-11-26",
@@ -38,7 +38,7 @@ export const events: Event[] = [
       name: "Sport Jabar, Arcamanik, Kota Bandung",
     },
     registerLink: "/event/portue-2023",
-    registeredPesertas: 1700,
+    registeredPesertas: 1772,
     championLink: true,
     editOnly: false,
   },

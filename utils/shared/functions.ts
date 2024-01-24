@@ -1,4 +1,5 @@
 import { Id, toast } from "react-toastify";
+import { string } from "yup";
 
 // CONTROL TOAST
 export const controlToast = (
@@ -51,4 +52,15 @@ export const compare = (query: string, type: "asc" | "desc") => {
     }
     return 0;
   };
+};
+
+// GENERATE TANGGAL
+export const generateTanggal = (
+  tanggal: string,
+  shortMonth: boolean = false
+) => {
+  const date = new Date(tanggal);
+  return `${date.getDate()} ${date.toLocaleString("id", {
+    month: shortMonth ? "short" : "long",
+  })} ${date.getFullYear()}`;
 };

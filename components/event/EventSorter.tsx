@@ -6,7 +6,7 @@ import { store } from "@/utils/redux/store";
 const EventSorter = () => {
   return (
     <Provider store={store}>
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-2">
         <EventSorterButton label="Newest" value="newest" />
         <EventSorterButton label="Upcoming" value="upcoming" />
       </div>

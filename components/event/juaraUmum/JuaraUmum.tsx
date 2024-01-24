@@ -1,6 +1,7 @@
 import NotFound from "@/app/not-found";
 import TabelJuara from "./TabelJuara";
 import { juaraUmum } from "@/utils/data/juaraUmum";
+import { events } from "@/utils/event/eventConstants";
 
 export type KontingenScore = {
   idKontingen: string;
@@ -20,11 +21,13 @@ export type KontingenScore = {
 
 export default function JuaraUmum({ eventId }: { eventId: string }) {
   const data: KontingenScore[] = juaraUmum[eventId];
+  const eventTitle =
+    events[events.findIndex((event) => event.id == eventId)].title;
   if (!data) return <NotFound />;
   return (
     <div>
       <h1 className="font-bold text-2xl">
-        Rekapituasi Perolehan Medali Portue 2023
+        Rekapituasi Perolehan Medali {eventTitle}
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8">
         <TabelJuara medalis={["sdEmas", "sdPerak"]} label="SD" rawData={data} />

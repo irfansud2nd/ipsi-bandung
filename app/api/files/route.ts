@@ -22,13 +22,13 @@ export const POST = async (req: Request) => {
         );
       })
     )
-    .catch((err: StorageError) => {
+    .catch((error: StorageError) => {
       return NextResponse.json(
         {
-          message: err.message,
-          code: err.code,
+          message: error.message,
+          code: error.code,
         },
-        { status: err.status }
+        { status: 500 }
       );
     });
 };
@@ -39,10 +39,10 @@ export const DELETE = async (req: Request) => {
     .then(() =>
       NextResponse.json({ message: "Successfully Deleted" }, { status: 200 })
     )
-    .catch((err: StorageError) =>
+    .catch((error: StorageError) =>
       NextResponse.json(
-        { message: err.message, code: err.code },
-        { status: err.status }
+        { message: error.message, code: error.code },
+        { status: 500 }
       )
     );
 };

@@ -21,9 +21,9 @@ export const POST = async (req: Request) => {
         }
       );
     })
-    .catch((err: FirestoreError) => {
+    .catch((error: FirestoreError) => {
       return NextResponse.json(
-        { message: err.message, code: err.code },
+        { message: error.message, code: error.code },
         { status: 500 }
       );
     });
