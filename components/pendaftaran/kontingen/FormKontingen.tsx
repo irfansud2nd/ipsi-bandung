@@ -17,7 +17,7 @@ const FormKontingen = () => {
         validationSchema={kontingenValidationSchema}
       >
         {({ errors, touched }) => (
-          <Form>
+          <Form className="flex gap-2 items-end">
             <InputText
               label="Nama Kontingen"
               name="namaKontingen"

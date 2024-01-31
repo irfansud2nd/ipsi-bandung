@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProfileButton from "./navbar/ProfileButton";
 
 const NavBar = () => {
   const links = [
@@ -16,12 +17,15 @@ const NavBar = () => {
       <Link href={"/"} className="font-extrabold text-2xl">
         IPSI KOTA BANDUNG
       </Link>
-      <div className="flex gap-2 font-semibold text-lg">
-        {links.map((link) => (
-          <Link href={link.href} key={link.href}>
-            {link.label}
-          </Link>
-        ))}
+      <div className="flex gap-2">
+        <div className="gap-2 font-semibold text-lg items-center hidden sm:flex">
+          {links.map((link) => (
+            <Link href={link.href} key={link.href}>
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <ProfileButton />
       </div>
     </div>
   );

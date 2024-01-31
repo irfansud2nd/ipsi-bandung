@@ -31,7 +31,7 @@ const Pendaftaran = () => {
 
   return (
     <Provider store={store}>
-      <div className="flex gap-5">
+      <div className="flex gap-5 mb-2">
         {navs.map(({ name }) => (
           <>
             <button

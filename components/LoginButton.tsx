@@ -13,16 +13,14 @@ const LoginButton = () => {
           <button className="btn_red" onClick={() => signOut()}>
             Logout
           </button>
-          <p>{session?.data.user.name}</p>
-          <p>{session?.data.user.email}</p>
           {session.data.user.image && (
             <img
               src={session.data.user.image}
-              alt=""
+              referrerPolicy="no-referrer"
+              alt="Profile"
               className="w-5 h-5 rounded-full"
             />
           )}
-          {session.data.user.email}
         </div>
       ) : null}
     </div>

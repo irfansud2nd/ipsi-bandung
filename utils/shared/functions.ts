@@ -67,7 +67,6 @@ export const generateTanggal = (
 };
 
 // GET EVENT TITLE
-
 export const getEventTitle = (eventId: string) => {
   return events[events.findIndex((event) => event.id == eventId)].title;
 };

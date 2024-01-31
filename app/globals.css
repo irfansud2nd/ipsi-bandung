@@ -4,6 +4,10 @@
 
 @layer base {
   /* BUTTONS */
+  button:disabled {
+    @apply btn_gray;
+  }
+
   .btn_green {
     @apply rounded-full px-2 bg-green-500 text-white border-2 border-green-500 hover:bg-transparent hover:text-green-500 transition-all;
   }
