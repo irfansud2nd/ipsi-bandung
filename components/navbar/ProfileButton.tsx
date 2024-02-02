@@ -24,7 +24,7 @@ const ProfileButton = () => {
             src={session.data.user.image}
             referrerPolicy="no-referrer"
             alt="Profile"
-            className="w-8 h-8 rounded-full "
+            className="w-8 h-8 rounded-full translate-y-0.5"
           />
         )}
       </button>

@@ -5,7 +5,7 @@ import InputSelect from "@/components/inputs/InputSelect";
 import InputText from "@/components/inputs/InputText";
 import InputTextArea from "@/components/inputs/InputTextArea";
 import {
-  jenisKelaminPeserta,
+  jenisKelaminAtlet,
   jenisPertandingan,
   pesertaInitialValue,
   pesertaValidationSchema,
@@ -29,7 +29,7 @@ const FormPeserta = () => {
         tingkatanKategori.findIndex((item) => item.tingkatan == tingkatan)
       ].kategoriTanding;
     } else {
-      if (jenisKelamin == jenisKelaminPeserta[0]) {
+      if (jenisKelamin == jenisKelaminAtlet[0]) {
         return tingkatanKategori[
           tingkatanKategori.findIndex((item) => item.tingkatan == tingkatan)
         ].kategoriSeni.putra;
@@ -59,7 +59,7 @@ const FormPeserta = () => {
             <InputSelect
               label="Jenis Kelamin"
               name="jenisKelamin"
-              options={jenisKelaminPeserta}
+              options={jenisKelaminAtlet}
             />
             <InputTextArea
               label="Alamat Lengkap"

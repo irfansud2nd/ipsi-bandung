@@ -13,13 +13,11 @@ const QrScanner = ({ setResult }: Props) => {
   const [cameraIndex, setCameraIndex] = useState(0);
 
   useEffect(() => {
-    Html5Qrcode.getCameras()
-      .then((devices) => {
-        if (devices && devices.length) {
-          setCameras(devices.map((device) => device.id));
-        }
-      })
-      .catch((err) => console.log(err));
+    Html5Qrcode.getCameras().then((devices) => {
+      if (devices && devices.length && !cameras.length) {
+        setCameras(devices.map((device) => device.id));
+      }
+    });
   }, []);
 
   let scanner: Html5Qrcode;
@@ -35,19 +33,16 @@ const QrScanner = ({ setResult }: Props) => {
           },
           (decodedText, decodedResult) => {
             // do something when code is read
-            console.log("decodedResult", decodedResult);
-            console.log("decodedText", decodedText);
             setResult(decodedText);
             scanner.stop();
           },
           (errorMessage) => {
             // parse error, ignore it.
-            console.log("errorMessage", errorMessage);
           }
         )
         .catch((err: any) => {
           // Start failed, handle it.
-          console.log("err", err);
+          console.log("ERROR STARTING", err);
         });
     }
     return () => {
@@ -63,6 +58,8 @@ const QrScanner = ({ setResult }: Props) => {
     }
   };
 
-  return <div id="reader" className="w-full sm:max-w-[500px]"></div>;
+  return (
+    <div id="reader" className="w-full sm:max-w-[500px] p-2 rounded-md"></div>
+  );
 };
 export default QrScanner;

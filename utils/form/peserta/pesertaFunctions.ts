@@ -37,7 +37,7 @@ export const sendPeserta = (peserta: PesertaState) => {
             downloadFotoUrl = data.downloadUrl;
             stepController(2);
           })
-          .catch((err) => console.log("ERROR", err));
+          .catch((error) => console.log("ERROR", error));
         break;
       case 2:
         // SEND KTP
@@ -54,7 +54,7 @@ export const sendPeserta = (peserta: PesertaState) => {
             donwloadKkUrl = data.downloadUrl;
             stepController(3);
           })
-          .catch((err) => console.log("ERROR", err));
+          .catch((error) => console.log("ERROR", error));
         break;
       case 3:
         // SEND KK
@@ -71,7 +71,7 @@ export const sendPeserta = (peserta: PesertaState) => {
             donwloadKkUrl = data.downloadUrl;
             stepController(5);
           })
-          .catch((err) => console.log("ERROR", err));
+          .catch((error) => console.log("ERROR", error));
         break;
       case 4:
         // ADD PESERTA TO KONTINGEN

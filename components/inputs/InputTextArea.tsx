@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, FormikErrors, FormikTouched } from "formik";
 import React from "react";
-import ErrorText from "../typograpghy/ErrorText";
+import ErrorText from "../typography/ErrorText";
 
 type InputTextAreaProps = {
   label: string;

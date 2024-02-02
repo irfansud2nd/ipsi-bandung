@@ -8,8 +8,10 @@ import { v4 as uuidv4 } from "uuid";
 
 const AbsenAdmin = () => {
   const [token, setToken] = useState("");
+  const [tokenStatus, setTokenStatus] = useState(false);
   const [loadingToken, setLoadingToken] = useState(true);
   const [loadingGenerate, setLoadingGenerate] = useState(false);
+  const [loadingStatus, setLoadingStatus] = useState(false);
 
   const toastId = useRef(null);
 
@@ -17,18 +19,39 @@ const AbsenAdmin = () => {
     setLoadingGenerate(true);
     const token = uuidv4();
     axios
-      .post("/api/absen/token", { token })
+      .post("/api/pal/absen/token", { token })
       .then((res) => {
         setToken(res.data.token);
+        setTokenStatus(res.data.status);
       })
-      .catch((err) => controlToast(err.message, toastId, "error"))
+      .catch((error) =>
+        controlToast(error.response.data.message, toastId, "error")
+      )
       .finally(() => setLoadingGenerate(false));
+  };
+
+  const changeTokenStatus = () => {
+    setLoadingStatus(true);
+    controlToast("Merubah status token", toastId, "loading", true);
+    axios
+      .patch("/api/pal/absen/token", { status: !tokenStatus })
+      .then((res) => {
+        setTokenStatus(res.data.status);
+        controlToast("Status token berhasil dirubah", toastId, "success");
+      })
+      .catch((error) =>
+        controlToast(error.response.data.message, toastId, "error")
+      )
+      .finally(() => setLoadingStatus(false));
   };
 
   const getToken = () => {
     axios
-      .get("/api/absen/token")
-      .then((res) => setToken(res.data.token))
+      .get("/api/pal/absen/token")
+      .then((res) => {
+        setTokenStatus(res.data.status);
+        setToken(res.data.token);
+      })
       .finally(() => setLoadingToken(false));
   };
 
@@ -44,8 +67,15 @@ const AbsenAdmin = () => {
           <p>Loading QR Code Absensi</p>
         </div>
       ) : token ? (
-        <div>
+        <div className="flex flex-col gap-2">
           <QRCodeSVG value={token} size={250} />
+          <button
+            onClick={changeTokenStatus}
+            className={`text-xl ${tokenStatus ? "btn_green" : "btn_red"}`}
+            disabled={loadingStatus}
+          >
+            Status {tokenStatus ? "Aktif" : "Nonaktif"}
+          </button>
         </div>
       ) : (
         <button

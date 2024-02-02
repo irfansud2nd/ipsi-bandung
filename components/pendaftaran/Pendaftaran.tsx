@@ -31,19 +31,27 @@ const Pendaftaran = () => {
 
   return (
     <Provider store={store}>
-      <div className="flex gap-5 mb-2">
-        {navs.map(({ name }) => (
+      <div className="flex border-b-black">
+        {navs.map(({ name }, i) => (
           <>
             <button
               onClick={() => setPart(name)}
-              className="btn_gray font-semibold pb-0.5"
+              className={`border border-black px-2 rounded-t-md font-semibold pb-0.5 ${
+                name == part ? "border-b-0 border-2" : " border-b-2"
+              }`}
             >
               {name}
             </button>
+            {i != navs.length - 1 && (
+              <span className="w-5 border-black border-b-2"></span>
+            )}
           </>
         ))}
+        <span className="border-b-2 border-b-black w-full"></span>
       </div>
-      {navs[navs.findIndex((nav) => nav.name == part)].component}
+      <div className="border-2 border-black border-t-0 p-1 rounded-b-md">
+        {navs[navs.findIndex((nav) => nav.name == part)].component}
+      </div>
       {/* <FormPeserta /> */}
       {/* <FormKontingen /> */}
       {/* <FormOfficial /> */}

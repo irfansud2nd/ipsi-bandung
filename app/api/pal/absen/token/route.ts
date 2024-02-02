@@ -1,5 +1,11 @@
 import { firestore } from "@/utils/firebase/firebase";
-import { FirestoreError, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  FirestoreError,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 const today = new Date();
@@ -11,6 +17,7 @@ export const POST = async (req: Request) => {
 
   const data = {
     [`token-${dayId}`]: token,
+    [`token-${dayId}-status`]: true,
   };
 
   return setDoc(doc(firestore, "absen-pal", id), data)
@@ -19,6 +26,7 @@ export const POST = async (req: Request) => {
         {
           message: "Token sent",
           token,
+          status: true,
         },
         {
           status: 200,
@@ -40,8 +48,9 @@ export const GET = async (req: Request) => {
         const data = docSnap.data();
         return NextResponse.json(
           {
-            token: data && data[`token-${dayId}`],
+            token: data[`token-${dayId}`],
             message: "Token already exist",
+            status: data[`token-${dayId}-status`],
           },
           {
             status: 200,
@@ -52,6 +61,25 @@ export const GET = async (req: Request) => {
     .catch((error: FirestoreError) => {
       return NextResponse.json(
         { message: error.message, code: error.code },
+        { status: 500 }
+      );
+    });
+};
+
+export const PATCH = async (req: Request) => {
+  const { status } = await req.json();
+
+  const data = {
+    [`token-${dayId}-status`]: status,
+  };
+
+  return updateDoc(doc(firestore, "absen-pal", id), data)
+    .then(() => {
+      return NextResponse.json({ message: `succes`, status }, { status: 200 });
+    })
+    .catch((error: FirestoreError) => {
+      return NextResponse.json(
+        { message: error.message, code: error.code, status: !status },
         { status: 500 }
       );
     });

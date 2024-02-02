@@ -14,9 +14,9 @@ const DownloadProposal = ({ id }: { id: string }) => {
     axios
       .get(`/api/proposal/${id}`)
       .then((res) => setDownloadUrl(res.data.downloadUrl))
-      .catch((err) => {
-        console.log(err);
-        setError(err);
+      .catch((error) => {
+        console.log(error);
+        setError(error);
       });
   };
 

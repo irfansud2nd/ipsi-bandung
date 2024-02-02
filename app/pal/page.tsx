@@ -1,4 +1,14 @@
+import IsAuthorized from "@/components/auth/IsAuthorized";
+import Link from "next/link";
+
 const page = () => {
-  return <div>page</div>;
+  return (
+    <IsAuthorized access="pal">
+      <h1 className="page_title">PAL PAGE</h1>
+      <Link href="/pal/absen" className="btn_green">
+        Absensi
+      </Link>
+    </IsAuthorized>
+  );
 };
 export default page;

@@ -1,15 +1,12 @@
 import AbsenPal from "@/components/pal/absen/AbsenPal";
-import IsLoggedIn from "@/components/utils/IsLoggedIn";
-import { useSession } from "next-auth/react";
+import IsLoggedIn from "@/components/auth/IsLoggedIn";
+import IsAuthorized from "@/components/auth/IsAuthorized";
 
 const page = () => {
   return (
-    <IsLoggedIn>
-      <div className="w-full h-full flex flex-col justify-center items-center">
-        <h1 className="page_title">Absensi Atlet PAL</h1>
-        <AbsenPal />
-      </div>
-    </IsLoggedIn>
+    <IsAuthorized access="pal">
+      <AbsenPal />
+    </IsAuthorized>
   );
 };
 export default page;

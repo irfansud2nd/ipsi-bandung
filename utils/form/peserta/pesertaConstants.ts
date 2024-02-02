@@ -131,7 +131,7 @@ export const tingkatanKategori = [
 export const jenisPertandingan = ["Tanding", "Seni"];
 
 // JENIS KELAMIN PESERTA
-export const jenisKelaminPeserta = ["Putra", "Putri"];
+export const jenisKelaminAtlet = ["Putra", "Putri"];
 
 // PESERTA TYPE
 export type PesertaState = {
@@ -182,7 +182,7 @@ export const pesertaInitialValue: PesertaState = {
   beratBadan: "",
   tinggiBadan: "",
   alamatLengkap: "",
-  jenisKelamin: jenisKelaminPeserta[0],
+  jenisKelamin: jenisKelaminAtlet[0],
   tingkatanPertandingan: tingkatanKategori[0].tingkatan,
   jenisPertandingan: jenisPertandingan[0],
   kategoriPertandingan: tingkatanKategori[0].kategoriTanding[0],

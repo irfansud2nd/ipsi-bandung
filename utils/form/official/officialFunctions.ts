@@ -23,7 +23,7 @@ export const sendOfficial = (official: OfficialState) => {
             downloadFotoUrl = data.downloadUrl;
             stepController(3);
           })
-          .catch((err) => console.log("ERROR", err));
+          .catch((error) => console.log("ERROR", error));
         break;
       case 2:
         // ADD OFFICIAL TO KONTINGEN

@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, FormikErrors, FormikTouched } from "formik";
 import React from "react";
-import ErrorText from "../typograpghy/ErrorText";
+import ErrorText from "../typography/ErrorText";
 
 type InputTextProps = {
   label: string;
@@ -36,7 +36,7 @@ const InputText = ({
       <Field
         name={name}
         type="text"
-        className={`outline-black border-2 border-black ${
+        className={`outline-black border-2 border-black px-1 ${
           errors[name] && touched[name] && "border-red-500"
         } rounded-md`}
       />

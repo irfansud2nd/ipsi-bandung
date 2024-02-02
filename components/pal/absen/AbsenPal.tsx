@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import QrScanner from "./QrScanner";
 import InlineLoading from "@/components/loading/InlineLoading";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { controlToast } from "@/utils/shared/functions";
 import { useSession } from "next-auth/react";
+import CenterBoxShadow from "@/components/utils/CenterBoxShadow";
 
 const Absen = () => {
   const session = useSession();
@@ -20,17 +21,21 @@ const Absen = () => {
   useEffect(() => {
     if (token) {
       setLoading(true);
-      axios.get("/api/absen/token").then((res) => {
+      axios.get("/api/pal/absen/token").then((res) => {
         if (token != res.data.token) {
           controlToast("QR Code Salah", toastId, "error", true);
           setToken("");
           setLoading(false);
+        } else if (!res.data.status) {
+          controlToast("QR Code tidak aktif", toastId, "error", true);
+          setToken("");
+          setLoading(false);
         } else {
           axios
-            .post("/api/absen", { email })
-            .catch((err) => {
+            .post("/api/pal/absen", { email })
+            .catch((error) => {
               setToken("");
-              controlToast(err.message, toastId, "error", true);
+              controlToast(error.response.data.message, toastId, "error", true);
             })
             .finally(() => setLoading(false));
         }
@@ -39,7 +44,7 @@ const Absen = () => {
   }, [token]);
 
   return (
-    <div className="w-full h-full sm:max-w-[500px] sm:max-h-[400px] shadow-2xl rounded-md bg-gray-50 flex justify-center items-center border-2 border-gray-300 p-2">
+    <CenterBoxShadow title="Absen Atlet PAL">
       {token ? (
         <div className="flex flex-col items-center text-2xl gap-y-3">
           {loading ? (
@@ -57,7 +62,7 @@ const Absen = () => {
       ) : (
         <QrScanner setResult={setToken} />
       )}
-    </div>
+    </CenterBoxShadow>
   );
 };
 export default Absen;

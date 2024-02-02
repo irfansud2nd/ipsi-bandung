@@ -19,5 +19,5 @@ export const sendKontingen = (kontingen: KontingenState) => {
     .then((res) => {
       res.ok && console.log("OK");
     })
-    .catch((err) => console.log(err));
+    .catch((error) => console.log(error));
 };

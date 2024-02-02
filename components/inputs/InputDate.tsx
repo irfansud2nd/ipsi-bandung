@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, FormikErrors, FormikTouched } from "formik";
 import React from "react";
-import ErrorText from "../typograpghy/ErrorText";
+import ErrorText from "../typography/ErrorText";
 type InputDateProps = {
   errors: FormikErrors<any>;
   touched: FormikTouched<any>;

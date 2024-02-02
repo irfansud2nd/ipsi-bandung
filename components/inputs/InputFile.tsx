@@ -1,10 +1,10 @@
 "use client";
 import { ErrorMessage, Field, FormikErrors, FormikTouched } from "formik";
 import React, { useEffect, useRef, useState } from "react";
-import ErrorText from "../typograpghy/ErrorText";
 import { controlToast } from "@/utils/shared/functions";
 import { Id } from "react-toastify";
 import { PesertaState } from "@/utils/form/peserta/pesertaConstants";
+import ErrorText from "../typography/ErrorText";
 
 type InputFileProps = {
   label: string;

@@ -3,6 +3,7 @@ import EventSorter from "@/components/event/EventSorter";
 import UnderConstruction from "@/components/utils/UnderConstruction";
 
 const EventsPage = () => {
+  return <UnderConstruction />;
   return (
     <div>
       <h1 className="text-4xl font-extrabold mb-1">EVENTS</h1>

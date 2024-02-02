@@ -7,6 +7,7 @@ import NavBar from "@/components/NavBar";
 import { authOptions } from "@/utils/auth/authOptions";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +25,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <SessionProvider session={session}>
-        <body className="min-h-screen grid grid-rows-[auto_1fr] w-full">
+        <body className="min-h-screen grid grid-rows-[auto_auto_1fr] w-full px-2 bg-[#F3F0E7]">
           <NavBar />
-          <main className="px-2">
+          <Breadcrumbs />
+          <main>
             <ToastContainer />
             {children}
           </main>

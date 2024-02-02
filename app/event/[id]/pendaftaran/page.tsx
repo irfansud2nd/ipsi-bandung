@@ -15,12 +15,12 @@ export async function generateMetadata({
 
 const page = ({ params }: { params: { id: string } }) => {
   return (
-    <>
+    <div className="w-full h-full">
       <h1 className="page_title">
         Halaman Pendaftaran - {getEventTitle(params.id)}
       </h1>
       <Pendaftaran />
-    </>
+    </div>
   );
 };
 
