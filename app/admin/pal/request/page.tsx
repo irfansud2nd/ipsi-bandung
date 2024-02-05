@@ -29,11 +29,11 @@ const page = () => {
     getRequest();
   }, []);
 
-  const verifyRequest = (id: string) => {
+  const verifyRequest = (email: string) => {
     controlToast("Memverifikasi akun", toastId, "loading", true);
     setLoading(true);
     axios
-      .patch("/api/pal/request", { id })
+      .patch("/api/pal/request", { email })
       .then((res) =>
         controlToast("Akun PAL berhasil diverifikasi", toastId, "success")
       )
@@ -47,12 +47,12 @@ const page = () => {
       .finally(() => setLoading(false));
   };
 
-  const deleteRequest = (id: string) => {
+  const deleteRequest = (email: string) => {
     if (!confirm("Are you sure")) return;
     controlToast("Menghapus request", toastId, "loading", true);
     setLoading(true);
     axios
-      .delete(`/api/pal/request/${id}`)
+      .delete(`/api/pal/request/${email}`)
       .then((res) => {
         controlToast("Request akun PAL berhasil dihapus", toastId, "success");
       })
@@ -86,14 +86,14 @@ const page = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Lenkap</th>
+              <th>Nama Lengkap</th>
               <th>Email</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
             {data.map((item: PalState, i) => (
-              <tr key={item.id}>
+              <tr key={item.email}>
                 <td>{i + 1}</td>
                 <td>{item.namaLengkap}</td>
                 <td>{item.email}</td>
@@ -101,14 +101,14 @@ const page = () => {
                   <div className="flex gap-1 py-1">
                     <button
                       className="btn_green text-sm"
-                      onClick={() => verifyRequest(item.id)}
+                      onClick={() => verifyRequest(item.email)}
                       disabled={loading}
                     >
                       Verify
                     </button>
                     <button
                       className="btn_red text-sm"
-                      onClick={() => deleteRequest(item.id)}
+                      onClick={() => deleteRequest(item.email)}
                       disabled={loading}
                     >
                       Delete

@@ -42,6 +42,22 @@ export const controlToast = (
   }
 };
 
+// TOAST AXIOS ERROR
+export const toastAxiosError = (
+  error: any,
+  ref: React.MutableRefObject<Id | null>,
+  newToast: boolean = false
+) => {
+  controlToast(
+    `${error.response.data.message} | ${
+      error.response.data.code || "UNKNOWN CODE"
+    }`,
+    ref,
+    "error",
+    newToast
+  );
+};
+
 //COMPARE FOR DATA SORTER
 export const compare = (query: string, type: "asc" | "desc") => {
   return (a: any, b: any) => {

@@ -1,4 +1,4 @@
-import AbsenAdmin from "@/components/admin/pal/AbsenAdmin";
+import AbsenAdmin from "@/components/admin/pal/absen/AbsenAdmin";
 
 const page = () => {
   return (

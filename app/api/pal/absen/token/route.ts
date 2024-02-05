@@ -1,4 +1,5 @@
 import { firestore } from "@/utils/firebase/firebase";
+import { getToday } from "@/utils/pal/absen/PalAbsenFunctions";
 import {
   FirestoreError,
   doc,
@@ -8,19 +9,18 @@ import {
 } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
-const today = new Date();
-const id = `${today.getMonth() + 1}-${today.getFullYear()}`;
-const dayId = `${today.getDate()}-${id}`;
+const thisMonth = getToday("month+year");
+const thisDay = getToday("fullDate");
 
 export const POST = async (req: Request) => {
   const { token } = await req.json();
 
   const data = {
-    [`token-${dayId}`]: token,
-    [`token-${dayId}-status`]: true,
+    [`token-${thisDay}`]: token,
+    [`token-${thisDay}-status`]: true,
   };
 
-  return setDoc(doc(firestore, "absen-pal", id), data)
+  return setDoc(doc(firestore, "absen-pal", thisMonth), data)
     .then(() => {
       return NextResponse.json(
         {
@@ -42,15 +42,15 @@ export const POST = async (req: Request) => {
 };
 
 export const GET = async (req: Request) => {
-  return getDoc(doc(firestore, "absen-pal", id))
+  return getDoc(doc(firestore, "absen-pal", thisMonth))
     .then((docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
         return NextResponse.json(
           {
-            token: data[`token-${dayId}`],
+            token: data[`token-${thisDay}`],
             message: "Token already exist",
-            status: data[`token-${dayId}-status`],
+            status: data[`token-${thisDay}-status`],
           },
           {
             status: 200,
@@ -70,10 +70,10 @@ export const PATCH = async (req: Request) => {
   const { status } = await req.json();
 
   const data = {
-    [`token-${dayId}-status`]: status,
+    [`token-${thisDay}-status`]: status,
   };
 
-  return updateDoc(doc(firestore, "absen-pal", id), data)
+  return updateDoc(doc(firestore, "absen-pal", thisMonth), data)
     .then(() => {
       return NextResponse.json({ message: `succes`, status }, { status: 200 });
     })

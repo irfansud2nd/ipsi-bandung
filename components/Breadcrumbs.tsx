@@ -34,16 +34,15 @@ const Breadcrumbs = () => {
         Home
       </Link>
       {paths.map((path, i) => (
-        <>
+        <div key={i} className="flex gap-1 items-center">
           {i != paths.length && <MdOutlineKeyboardArrowRight />}
           <Link
-            key={path}
             href={`/${paths.slice(0, i + 1).join("/")}`}
             className={`${i == paths.length - 1 && "font-bold"} capitalize`}
           >
             {renamePath(path)}
           </Link>
-        </>
+        </div>
       ))}
     </div>
   );

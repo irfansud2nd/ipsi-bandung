@@ -1,5 +1,5 @@
 "use client";
-import SideMenu from "@/components/admin/Dashboard/SideMenu";
+import SideMenu from "@/components/admin/dashboard/SideMenu";
 import IsAuthorized from "@/components/auth/IsAuthorized";
 
 const layout = ({ children }: { children: React.ReactNode }) => {

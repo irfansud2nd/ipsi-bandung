@@ -21,7 +21,6 @@ const QrScanner = ({ setResult }: Props) => {
   }, []);
 
   let scanner: Html5Qrcode;
-
   useEffect(() => {
     if (cameras.length) {
       scanner = new Html5Qrcode("reader");
@@ -34,6 +33,7 @@ const QrScanner = ({ setResult }: Props) => {
           (decodedText, decodedResult) => {
             // do something when code is read
             setResult(decodedText);
+            console.log("got result, stop scanner");
             scanner.stop();
           },
           (errorMessage) => {
@@ -47,6 +47,7 @@ const QrScanner = ({ setResult }: Props) => {
     }
     return () => {
       if (scanner && scanner.isScanning) scanner.stop();
+      console.log("dismount");
     };
   }, [cameraIndex, cameras]);
 

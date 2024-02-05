@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
 import { controlToast } from "@/utils/shared/functions";
 import { useSession } from "next-auth/react";
 import CenterBoxShadow from "@/components/utils/CenterBoxShadow";
+import { tipeKehadiran } from "@/utils/pal/absen/PalAbsenConstants";
 
 const Absen = () => {
   const session = useSession();
@@ -32,7 +33,7 @@ const Absen = () => {
           setLoading(false);
         } else {
           axios
-            .post("/api/pal/absen", { email })
+            .patch("/api/pal/absen", { email, tipe: tipeKehadiran[0] })
             .catch((error) => {
               setToken("");
               controlToast(error.response.data.message, toastId, "error", true);

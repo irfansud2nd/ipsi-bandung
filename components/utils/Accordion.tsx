@@ -22,7 +22,7 @@ const Accordion = ({ className, title, children }: Props) => {
         />
       </button>
       <div
-        className={`overflow-hidden transition-all h-fit duration-500
+        className={`overflow-hidden transition-all h-fit duration-500 pt-1
         ${show ? "max-h-[1000px] border-t border-black" : "max-h-0"}`}
       >
         {children}

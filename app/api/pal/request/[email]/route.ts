@@ -4,11 +4,11 @@ import { NextResponse } from "next/server";
 
 export const DELETE = async (
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { email: string } }
 ) => {
-  const id = params.id;
+  const email = params.email;
 
-  return deleteDoc(doc(firestore, "pal", id))
+  return deleteDoc(doc(firestore, "pal", email))
     .then((res) => {
       return NextResponse.json(
         { message: "Request successfully deleted" },

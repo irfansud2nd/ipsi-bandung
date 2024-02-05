@@ -9,9 +9,14 @@ const page = () => {
         apiUrl="/api/pal/request/count"
         link="/admin/pal/request"
       />
-      <Link href={"pal/absen"} className="btn_green">
-        Absensi
-      </Link>
+      <div className="flex gap-1">
+        <Link href={"pal/absen"} className="btn_green">
+          Absensi
+        </Link>
+        <Link href={"pal/absen/rekap"} className="btn_green">
+          Rekap & Edit
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,19 +1,28 @@
 import { firestore } from "@/utils/firebase/firebase";
-import { FirestoreError, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { getToday } from "@/utils/pal/absen/PalAbsenFunctions";
+import {
+  FirestoreError,
+  arrayRemove,
+  arrayUnion,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { NextResponse } from "next/server";
-import axios from "axios";
 
-export const POST = async (req: Request) => {
-  const { email } = await req.json();
-  const today = new Date();
-  const id = `${today.getMonth() + 1}-${today.getFullYear()}`;
-  const dayId = `${today.getDate()}-${id}`;
+export const PATCH = async (req: Request) => {
+  const { email, tipe, month, day } = await req.json();
+  const thisMonth = month || getToday("month+year");
+  const todayDate = day || getToday("day");
 
   const data = {
-    [dayId]: arrayUnion(email),
+    [`${thisMonth}-hadir`]: arrayRemove(todayDate),
+    [`${thisMonth}-izin`]: arrayRemove(todayDate),
+    [`${thisMonth}-sakit`]: arrayRemove(todayDate),
+    [`${thisMonth}-alfa`]: arrayRemove(todayDate),
+    [`${thisMonth}-${tipe}`]: arrayUnion(todayDate),
   };
 
-  return updateDoc(doc(firestore, "absen-pal", id), data)
+  return updateDoc(doc(firestore, "pal", email), data)
     .then(() => {
       return NextResponse.json(
         {

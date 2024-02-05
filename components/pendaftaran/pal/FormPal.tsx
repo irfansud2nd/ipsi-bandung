@@ -26,12 +26,9 @@ const FormPal = () => {
 
   const sendPalRequest = (data: PalState) => {
     controlToast("Mendaftarkan akun anda", toastId, "loading", true);
-    const newDocRef = doc(collection(firestore, "pal"));
-    const id = newDocRef.id;
     axios
       .post("/api/pal/request", {
         ...data,
-        id,
         waktuPendaftaran: Date.now(),
       })
       .then((res) => {

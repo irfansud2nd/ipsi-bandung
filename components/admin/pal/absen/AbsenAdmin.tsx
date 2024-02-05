@@ -5,6 +5,8 @@ import axios from "axios";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Switch from "react-switch";
+import Link from "next/link";
 
 const AbsenAdmin = () => {
   const [token, setToken] = useState("");
@@ -67,15 +69,29 @@ const AbsenAdmin = () => {
           <p>Loading QR Code Absensi</p>
         </div>
       ) : token ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-y-5 items-center">
           <QRCodeSVG value={token} size={250} />
-          <button
+          {/* <button
             onClick={changeTokenStatus}
             className={`text-xl ${tokenStatus ? "btn_green" : "btn_red"}`}
             disabled={loadingStatus}
           >
             Status {tokenStatus ? "Aktif" : "Nonaktif"}
-          </button>
+          </button> */}
+          <div className="flex gap-1 justify-center items-center font-bold">
+            <Link href={"absen/rekap"} className="btn_green text-base">
+              Rekap & Edit
+            </Link>
+            <p className={`${tokenStatus ? "text-green-500" : "text-red-500"}`}>
+              QR {tokenStatus ? "Aktif" : "Nonaktif"}
+            </p>
+            <Switch
+              onChange={changeTokenStatus}
+              checked={tokenStatus}
+              offColor="#ef4444"
+              disabled={loadingStatus}
+            />
+          </div>
         </div>
       ) : (
         <button

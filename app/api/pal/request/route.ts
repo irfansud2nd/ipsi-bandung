@@ -39,7 +39,7 @@ export const GET = async (req: Request) => {
 export const POST = async (req: Request) => {
   const data = await req.json();
 
-  return setDoc(doc(firestore, "pal", data.id), data)
+  return setDoc(doc(firestore, "pal", data.email), data)
     .then(() => {
       return NextResponse.json(
         {
@@ -59,9 +59,9 @@ export const POST = async (req: Request) => {
 };
 
 export const PATCH = async (req: Request) => {
-  const { id } = await req.json();
+  const { email } = await req.json();
 
-  return updateDoc(doc(firestore, "pal", id), {
+  return updateDoc(doc(firestore, "pal", email), {
     verified: true,
   })
     .then((res) => {

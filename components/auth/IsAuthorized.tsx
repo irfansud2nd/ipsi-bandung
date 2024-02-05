@@ -9,9 +9,10 @@ import NotAuthorized from "./NotAuthorized";
 type Props = {
   access: "admin" | "pal" | "master" | "palReverse";
   children: React.ReactNode;
+  returnNull?: boolean;
 };
 
-const IsAuthorized = ({ access, children }: Props) => {
+const IsAuthorized = ({ access, children, returnNull }: Props) => {
   const session = useSession();
   const [status, setStatus] = useState(false);
   const [onRequest, setOnRequest] = useState(false);
@@ -40,18 +41,23 @@ const IsAuthorized = ({ access, children }: Props) => {
       .finally(() => setLoading(false));
   };
 
-  if (loading) return <FullLoading text="Memeriksa Akses" />;
+  if (loading)
+    return <>{returnNull ? null : <FullLoading text="Memeriksa Akses" />}</>;
 
   if (access == "palReverse") {
     if (onRequest) {
-      return <NotAuthorized pal={{ onRequest }} />;
+      return <>{returnNull ? null : <NotAuthorized pal={{ onRequest }} />}</>;
     } else {
       return <>{children}</>;
     }
   }
 
-  if (!status)
-    return <NotAuthorized pal={access == "pal" ? { onRequest } : undefined} />;
+  if (!status) return;
+  <>
+    {returnNull ? null : (
+      <NotAuthorized pal={access == "pal" ? { onRequest } : undefined} />
+    )}
+  </>;
 
   return <>{children}</>;
 };
