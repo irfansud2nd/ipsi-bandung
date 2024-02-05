@@ -30,7 +30,7 @@ const ProfileButton = () => {
       </button>
       {/* {showMenu && ( */}
       <div
-        className={`bg-gray-50 border-gray-200 absolute right-0 flex flex-col items-end gap-1 font-normal text-base rounded-md shadow-lg transition-all overflow-hidden
+        className={`bg-gray-50 border-gray-200 absolute z-10 right-0 flex flex-col items-end gap-1 font-normal text-base rounded-md shadow-lg transition-all overflow-hidden
           ${showMenu ? "max-h-[1000px] p-1 border-2" : "max-h-0"}`}
       >
         <p>{session.data.user.email}</p>

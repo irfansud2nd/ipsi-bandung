@@ -1,8 +1,10 @@
 "use client";
 
+import { controlToast } from "@/utils/shared/functions";
 import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
 import { IoCameraReverseOutline } from "react-icons/io5";
+import { useRef } from "react";
 
 type Props = {
   setResult: React.Dispatch<React.SetStateAction<string>>;
@@ -11,6 +13,8 @@ type Props = {
 const QrScanner = ({ setResult }: Props) => {
   const [cameras, setCameras] = useState<string[]>([]);
   const [cameraIndex, setCameraIndex] = useState(0);
+
+  const toastId = useRef(null);
 
   useEffect(() => {
     Html5Qrcode.getCameras().then((devices) => {
@@ -33,7 +37,6 @@ const QrScanner = ({ setResult }: Props) => {
           (decodedText, decodedResult) => {
             // do something when code is read
             setResult(decodedText);
-            console.log("got result, stop scanner");
             scanner.stop();
           },
           (errorMessage) => {
@@ -42,12 +45,11 @@ const QrScanner = ({ setResult }: Props) => {
         )
         .catch((err: any) => {
           // Start failed, handle it.
-          console.log("ERROR STARTING", err);
+          controlToast("Scanner Error", toastId, "error", true);
         });
     }
     return () => {
       if (scanner && scanner.isScanning) scanner.stop();
-      console.log("dismount");
     };
   }, [cameraIndex, cameras]);
 

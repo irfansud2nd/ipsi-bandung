@@ -46,18 +46,16 @@ const IsAuthorized = ({ access, children, returnNull }: Props) => {
 
   if (access == "palReverse") {
     if (onRequest) {
-      return <>{returnNull ? null : <NotAuthorized pal={{ onRequest }} />}</>;
+      return returnNull ? null : <NotAuthorized pal={{ onRequest }} />;
     } else {
       return <>{children}</>;
     }
   }
 
-  if (!status) return;
-  <>
-    {returnNull ? null : (
+  if (!status)
+    return returnNull ? null : (
       <NotAuthorized pal={access == "pal" ? { onRequest } : undefined} />
-    )}
-  </>;
+    );
 
   return <>{children}</>;
 };
