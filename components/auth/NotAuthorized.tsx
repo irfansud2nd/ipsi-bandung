@@ -11,7 +11,7 @@ const NotAuthorized = ({ pal }: Props) => {
         <h1 className="text-2xl sm:text-3xl font-bold max-w-[200px]">
           Maaf, Anda tidak memiliki izin untuk mengakses halaman ini.
         </h1>
-        <img src={image.src} className="w-[150px] sm:w-[250px] h-fit" />
+        <img src={image.src} className="w-[150px] sm:w-[250px]" />
       </div>
       {pal &&
         (pal.onRequest ? (

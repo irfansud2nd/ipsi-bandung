@@ -48,7 +48,7 @@ const RekapAbsen = () => {
   }, []);
 
   return (
-    <div>
+    <div className="max-w-full overflow-x-auto">
       <div className="flex gap-1">
         <input
           type="month"
@@ -81,33 +81,36 @@ const RekapAbsen = () => {
               </p>
             ))}
           </div>
-          <table className="text-sm" ref={tabelRef}>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama Lengkap</th>
-                {getDaysInMonth(month).map((day) => (
-                  <th key={day}>{day}</th>
-                ))}
-                <th>Hadir</th>
-                <th>Izin</th>
-                <th>Sakit</th>
-                <th>Alfa</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pals.map((item, i) => (
-                <tr key={item.email}>
-                  <td>{i + 1}</td>
-                  <td>{item.namaLengkap}</td>
-                  {getDaysInMonth(month).map((day) =>
-                    checkAbsen(item, month, day)
-                  )}
-                  {sumAbsen(item, month)}
+          <div className="max-w-full overflow-x-auto">
+            <table className="text-sm w-full" ref={tabelRef}>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Lengkap</th>
+                  {getDaysInMonth(month).map((day) => (
+                    <th key={day}>{day}</th>
+                  ))}
+                  <th>Hadir</th>
+                  <th>Izin</th>
+                  <th>Sakit</th>
+                  <th>Alfa</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {pals.map((item, i) => (
+                  <tr key={item.email}>
+                    <td>{i + 1}</td>
+                    <td className="whitespace-nowrap">{item.namaLengkap}</td>
+                    {getDaysInMonth(month).map((day) =>
+                      checkAbsen(item, month, day)
+                    )}
+                    {sumAbsen(item, month)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
           <Accordion title="Edit & Manual" className="mt-1 w-fit">
             <AbsenEditor data={pals} month={month} setPals={setPals} />
           </Accordion>

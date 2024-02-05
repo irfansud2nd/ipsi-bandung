@@ -7,7 +7,7 @@ const NotLoggedIn = () => {
         <h1 className="text-2xl sm:text-3xl font-bold max-w-[200px]">
           Maaf, anda harus melalukan login untuk mengakses halaman ini
         </h1>
-        <img src={image.src} className="w-[150px] sm:w-[250px] h-fit" />
+        <img src={image.src} className="w-[150px] sm:w-[250px]" />
       </div>
     </div>
   );

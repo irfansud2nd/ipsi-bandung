@@ -7,7 +7,7 @@ const NotFound = () => {
         <h1 className="text-2xl sm:text-3xl font-bold max-w-[200px]">
           Sorry, we cant find the page
         </h1>
-        <img src={image.src} className="w-[150px] sm:w-[250px] h-fit" />
+        <img src={image.src} className="max-w-[50vw] w-[150px] sm:w-[250px]" />
       </div>
     </div>
   );
