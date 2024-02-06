@@ -1,7 +1,7 @@
 "use client";
 import InlineLoading from "@/components/loading/InlineLoading";
 import { PalState } from "@/utils/form/pal/palConstants";
-import { controlToast } from "@/utils/shared/functions";
+import { compare, controlToast } from "@/utils/shared/functions";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import TandaAbsen from "./TandaAbsen";
@@ -35,7 +35,7 @@ const RekapAbsen = () => {
     axios
       .get("/api/pal")
       .then((res) => {
-        setPals(res.data.data);
+        setPals(res.data.pals);
       })
       .catch((error) => {
         controlToast(error.response.data.message, toastId, "error", true);
@@ -97,7 +97,7 @@ const RekapAbsen = () => {
                 </tr>
               </thead>
               <tbody>
-                {pals.map((item, i) => (
+                {pals.sort(compare("namaLengkap", "asc")).map((item, i) => (
                   <tr key={item.email}>
                     <td>{i + 1}</td>
                     <td className="whitespace-nowrap">{item.namaLengkap}</td>

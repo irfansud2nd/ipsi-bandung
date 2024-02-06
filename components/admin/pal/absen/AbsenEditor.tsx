@@ -68,7 +68,7 @@ const AbsenEditor = ({ data, month, setPals }: Props) => {
         }
       : {
           ...updatedPal,
-          [`${month}-${tipe}`]: updatedPal[`${month}-${tipe}`].push(day),
+          [`${month}-${tipe}`]: [...updatedPal[`${month}-${tipe}`], day],
         };
     updatedPals.push(updatedPal);
     setPals(updatedPals);

@@ -49,8 +49,8 @@ export const toastAxiosError = (
   newToast: boolean = false
 ) => {
   controlToast(
-    `${error.response.data.message} | ${
-      error.response.data.code || "UNKNOWN CODE"
+    `${error.response?.data?.message || "UNKNOWN ERROR"} | ${
+      error.response?.data?.code || "UNKNOWN CODE"
     }`,
     ref,
     "error",
@@ -85,4 +85,16 @@ export const generateTanggal = (
 // GET EVENT TITLE
 export const getEventTitle = (eventId: string) => {
   return events[events.findIndex((event) => event.id == eventId)].title;
+};
+
+// IS EDIT ONLY
+export const isEditOnly = (eventId: string) => {
+  return events[events.findIndex((event) => event.id == eventId)].editOnly;
+};
+
+// GET EVENT ID BY PATHNAME
+export const getEventIdByPathname = (pathname: string) => {
+  const arr = pathname.split("/");
+  const eventIds = events.map((event) => event.id);
+  return arr.filter((item) => eventIds.includes(item))[0];
 };
