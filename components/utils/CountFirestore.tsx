@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import InlineLoading from "../loading/InlineLoading";
-import { toastAxiosError } from "@/utils/shared/functions";
+import { controlToast, toastAxiosError } from "@/utils/shared/functions";
 
 type Props = {
   title: string;
@@ -28,9 +28,11 @@ const CountFirestore = ({ title, apiUrl, link }: Props) => {
       .finally(() => setLoading(false));
   };
 
+  if (!apiUrl) controlToast("apiUrl not found", toastId, "error", true);
+
   useEffect(() => {
-    getCount();
-  }, []);
+    if (apiUrl) getCount();
+  }, [apiUrl]);
 
   return (
     <div className="shadow-md bg-gray-900 text-white flex flex-col gap-1 p-1 w-fit rounded-md mb-1 text-center">

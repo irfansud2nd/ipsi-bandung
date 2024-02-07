@@ -14,7 +14,7 @@ export const GET = async (req: Request) => {
   )
     .then((snapshot) => {
       const count = snapshot.data().count;
-      return NextResponse.json({ count: count }, { status: 200 });
+      return NextResponse.json({ count }, { status: 200 });
     })
     .catch((error: FirestoreError) => {
       return NextResponse.json(
