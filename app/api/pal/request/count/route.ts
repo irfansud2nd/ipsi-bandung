@@ -13,10 +13,8 @@ export const GET = async (req: Request) => {
     query(collection(firestore, "pal"), where("verified", "==", false))
   )
     .then((snapshot) => {
-      return NextResponse.json(
-        { count: snapshot.data().count },
-        { status: 200 }
-      );
+      const count = snapshot.data().count;
+      return NextResponse.json({ count: count }, { status: 200 });
     })
     .catch((error: FirestoreError) => {
       return NextResponse.json(

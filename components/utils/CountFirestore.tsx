@@ -1,8 +1,9 @@
 "use client";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import InlineLoading from "../loading/InlineLoading";
+import { toastAxiosError } from "@/utils/shared/functions";
 
 type Props = {
   title: string;
@@ -14,6 +15,8 @@ const CountFirestore = ({ title, apiUrl, link }: Props) => {
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
 
+  const toastId = useRef(null);
+
   const getCount = () => {
     setLoading(true);
     axios
@@ -21,7 +24,7 @@ const CountFirestore = ({ title, apiUrl, link }: Props) => {
       .then((res) => {
         setCount(res.data.count);
       })
-      .catch((error) => alert(error))
+      .catch((error) => toastAxiosError(error, toastId, true))
       .finally(() => setLoading(false));
   };
 
