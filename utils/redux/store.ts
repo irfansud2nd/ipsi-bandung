@@ -10,7 +10,7 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     user: userReducer,
-    // eventSorter: eventSorterReducer,
+    eventSorter: eventSorterReducer,
     kontingens: kontingensReducer,
     officials: officialsReducer,
     pesertas: pesertasReducer,
