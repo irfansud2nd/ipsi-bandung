@@ -2,12 +2,15 @@ import TandaAbsen from "@/components/admin/pal/absen/TandaAbsen";
 import { tipeKehadiran } from "./PalAbsenConstants";
 
 // GET TODAY
-export const getToday = (config: "month+year" | "fullDate" | "day") => {
+export const getToday = (
+  config: "month+year" | "fullDate" | "day" | "hour+minute"
+) => {
   const now = new Date();
   const thisMonth = `${now.getFullYear()}-${(now.getMonth() + 1)
     .toString()
     .padStart(2, "0")}`;
   const thisDay = `${now.getDate().toString().padStart(2, "0")}`;
+  const time = `${now.getHours()}:${now.getMinutes()}`;
   const fullDate = `${thisMonth}-${thisDay}`;
 
   switch (config) {
@@ -17,6 +20,8 @@ export const getToday = (config: "month+year" | "fullDate" | "day") => {
       return fullDate;
     case "day":
       return thisDay;
+    case "hour+minute":
+      return time;
   }
 };
 
@@ -35,40 +40,25 @@ export const getDaysInMonth = (monthYear: string) => {
 
 // SUMMARIZE ABSEN
 export const sumAbsen = (data: any, month: string) => {
-  const result: any = {
+  const result = {
     hadir: 0,
     izin: 0,
     sakit: 0,
     alfa: 0,
   };
-  if (!data[`${month}-compressed`]) {
-    getDaysInMonth(month).map((day) => {
-      tipeKehadiran.map((item) => {
-        if (item == "alfa") {
-          if (
-            getToday("day") > day &&
-            data[`${month}-hadir`] &&
-            data[`${month}-hadir`].indexOf(day) < 0
-          )
-            result[item] += 1;
-        } else {
-          if (
-            data[`${month}-${item}`] &&
-            data[`${month}-${item}`].indexOf(day) >= 0
-          )
-            result[item] += 1;
-        }
-      });
-    });
-  } else {
-    const compressedData = data[`${month}-compressed`];
-    tipeKehadiran.map((item) => {
-      if (item != "hadir") {
-        result[item] = compressedData[item].length;
+  const absen = data[`absen-${month}`];
+  const days = getDaysInMonth(month);
+  if (absen) {
+    days.map((day) => {
+      if (!absen[day]) {
+        if (getToday("day") > day) result.alfa += 1;
+        return;
       }
+      if (absen[day].tipe == "alfa") result.alfa += 1;
+      if (absen[day].tipe == "hadir") result.hadir += 1;
+      if (absen[day].tipe == "izin") result.izin += 1;
+      if (absen[day].tipe == "sakit") result.sakit += 1;
     });
-    result.hadir =
-      getDaysInMonth(month).length - result.sakit - result.izin - result.alfa;
   }
   return (
     <>
@@ -81,33 +71,20 @@ export const sumAbsen = (data: any, month: string) => {
 };
 
 // CHECK ABSEN
-export const checkAbsen = (
-  data: Record<string, string[]>,
-  month: string,
-  day: string
-) => {
-  if (!data[`${month}-compressed`]) {
-    if (data[`${month}-hadir`] && data[`${month}-hadir`].indexOf(day) >= 0)
-      return <TandaAbsen as="td" ket="hadir" key={day} />;
-    if (data[`${month}-izin`] && data[`${month}-izin`].indexOf(day) >= 0)
-      return <TandaAbsen as="td" ket="izin" key={day} />;
-    if (data[`${month}-sakit`] && data[`${month}-sakit`].indexOf(day) >= 0)
-      return <TandaAbsen as="td" ket="sakit" key={day} />;
-    if (
-      getToday("day") > day &&
-      data[`${month}-hadir`] &&
-      data[`${month}-hadir`].indexOf(day) < 0
-    )
-      return <TandaAbsen as="td" ket="alfa" key={day} />;
-    return <TandaAbsen as="td" ket="" key={day} />;
-  } else {
-    const compressedData: any = data[`${month}-compressed`];
-    if (compressedData.izin.indexOf(day) >= 0)
-      return <TandaAbsen as="td" ket="izin" key={day} />;
-    if (compressedData.sakit.indexOf(day) >= 0)
-      return <TandaAbsen as="td" ket="sakit" key={day} />;
-    if (compressedData.alfa.indexOf(day) >= 0)
-      return <TandaAbsen as="td" ket="alfa" key={day} />;
-    return <TandaAbsen as="td" ket="hadir" key={day} />;
+export const checkAbsen = (data: any, month: string, day: string) => {
+  const result = {
+    tipe: "",
+    time: "",
+    byPelatih: false,
+  };
+  if (!data[`absen-${month}`]) return result;
+  const absen = data[`absen-${month}`][day];
+  if (absen) {
+    result.tipe = absen.tipe;
+    result.time = absen.time;
+    result.byPelatih = absen.byPelatih;
+  } else if (getToday("day") > day) {
+    result.tipe = "alfa";
   }
+  return result;
 };

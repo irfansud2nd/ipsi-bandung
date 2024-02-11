@@ -98,3 +98,17 @@ export const getEventIdByPathname = (pathname: string) => {
   const eventIds = events.map((event) => event.id);
   return arr.filter((item) => eventIds.includes(item))[0];
 };
+
+export const isOfType = <T extends object>(
+  variable: any,
+  type: T
+): variable is T => {
+  if (
+    typeof variable === "object" &&
+    variable !== null &&
+    Object.keys(variable).every((key) => key in type)
+  ) {
+    return true;
+  }
+  return false;
+};

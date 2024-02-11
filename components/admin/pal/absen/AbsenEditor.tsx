@@ -31,7 +31,8 @@ const AbsenEditor = ({ data, month, setPals }: Props) => {
   const [tipe, setTipe] = useState(tipeKehadiran[0]);
   const [day, setDay] = useState(getToday("day"));
   const [loading, setLoading] = useState(false);
-  const [tipeBefore, setTipeBefore] = useState("");
+  const [oldTipe, setOldTipe] = useState("");
+  const [time, setTime] = useState("");
 
   const toastId = useRef(null);
 
@@ -44,8 +45,9 @@ const AbsenEditor = ({ data, month, setPals }: Props) => {
       .patch("/api/pal/absen", {
         email: target,
         tipe,
-        month,
-        day,
+        targetMonth: month,
+        targetDay: day,
+        time: time || getToday("hour+minute"),
       })
       .then((res) => {
         controlToast("Absen berhasil disimpan", toastId, "success");
@@ -58,38 +60,37 @@ const AbsenEditor = ({ data, month, setPals }: Props) => {
   const updatePals = () => {
     const updatedPals = pals.filter((pal) => pal.email != target);
     let updatedPal = pals.filter((pal) => pal.email == target)[0];
-    updatedPal = tipeBefore
-      ? {
-          ...updatedPal,
-          [`${month}-${tipeBefore}`]: updatedPal[
-            `${month}-${tipeBefore}`
-          ].filter((item: string[]) => item.indexOf(day) < 0),
-          [`${month}-${tipe}`]: [...updatedPal[`${month}-${tipe}`], day],
-        }
-      : {
-          ...updatedPal,
-          [`${month}-${tipe}`]: [...updatedPal[`${month}-${tipe}`], day],
-        };
+    updatedPal = {
+      ...updatedPal,
+      [`absen-${month}`]: {
+        ...updatedPal[`absen-${month}`],
+        [day]: {
+          tipe: tipe,
+          time: time || getToday("hour+minute"),
+          byPelatih: true,
+        },
+      },
+    };
     updatedPals.push(updatedPal);
     setPals(updatedPals);
   };
 
   const checkAbsen = () => {
     const pal = pals[pals.findIndex((pal) => pal.email == target)];
+    if (!pal[`absen-${month}`]) return;
+    const absen = pal[`absen-${month}`][day];
     let tipeBefore;
-    tipeKehadiran.map((tipe) => {
-      if (
-        pal[`${month}-${tipe}`] &&
-        pal[`${month}-${tipe}`].indexOf(day) >= 0
-      ) {
-        tipeBefore = tipe;
-      }
-    });
+    let timeBefore;
+    if (absen) {
+      tipeBefore = absen.tipe;
+      timeBefore = absen.time;
+    }
     tipeBefore
-      ? setTipeBefore(tipeBefore)
+      ? setOldTipe(tipeBefore)
       : getToday("day") > day
-      ? setTipeBefore(tipeKehadiran[3])
-      : setTipeBefore("");
+      ? setOldTipe(tipeKehadiran[3])
+      : setOldTipe("");
+    timeBefore ? setTime(timeBefore) : setTime("");
   };
 
   useEffect(() => {
@@ -97,8 +98,8 @@ const AbsenEditor = ({ data, month, setPals }: Props) => {
   }, [day, target, pals]);
 
   useEffect(() => {
-    tipeBefore ? setTipe(tipeBefore) : setTipe(tipeKehadiran[0]);
-  }, [tipeBefore]);
+    oldTipe ? setTipe(oldTipe) : setTipe(tipeKehadiran[0]);
+  }, [oldTipe]);
 
   useEffect(() => {
     const daysLength = getDaysInMonth(month).length;
@@ -106,7 +107,7 @@ const AbsenEditor = ({ data, month, setPals }: Props) => {
   }, [month]);
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 flex-wrap">
       <select
         onChange={(e) => setTarget(e.target.value)}
         value={target}

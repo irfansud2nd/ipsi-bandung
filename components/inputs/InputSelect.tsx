@@ -1,3 +1,4 @@
+import { KontingenState } from "@/utils/form/kontingen/kontingenConstants";
 import { PesertaState } from "@/utils/form/peserta/pesertaConstants";
 import { Field, FormikErrors } from "formik";
 import React, { useEffect } from "react";
@@ -6,6 +7,7 @@ type InputSelectProps = {
   name: string;
   label: string;
   options: any[];
+  disabled: boolean;
   setFieldValue?: (
     field: string,
     value: any,
@@ -18,6 +20,7 @@ const InputSelect = ({
   label,
   options,
   setFieldValue,
+  disabled,
 }: InputSelectProps) => {
   useEffect(() => {
     if (options.length && setFieldValue) {
@@ -32,6 +35,7 @@ const InputSelect = ({
         name={name}
         as="select"
         className="outline-black border-2 border-black rounded-md"
+        disabled={disabled}
       >
         {options.map((option) => (
           <option value={option} className="bg-white" key={option}>

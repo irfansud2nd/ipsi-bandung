@@ -17,27 +17,30 @@ export const PATCH = async (req: Request) => {
   if (!session?.user?.email)
     return NextResponse.json({ message: "Not logged in" }, { status: 401 });
 
-  const { email, tipe, month, day } = await req.json();
+  const { email, targetMonth, targetDay, tipe, time } = await req.json();
 
-  if (email != session.user.email && month && day) {
+  if (email != session.user.email && targetDay) {
     const admin = await isAdmin(session.user.email);
     if (!admin) {
       return NextResponse.json({ message: "Not Authorized" }, { status: 401 });
     }
   }
 
-  const thisMonth = month || getToday("month+year");
-  const todayDate = day || getToday("day");
+  const month = targetMonth || getToday("month+year");
+  const day = targetDay || getToday("day");
 
-  let data = {
-    [`${thisMonth}-hadir`]: arrayRemove(todayDate),
-    [`${thisMonth}-izin`]: arrayRemove(todayDate),
-    [`${thisMonth}-sakit`]: arrayRemove(todayDate),
-    [`${thisMonth}-alfa`]: arrayRemove(todayDate),
-    [`${thisMonth}-${tipe}`]: arrayUnion(todayDate),
+  const absen: any = {
+    [`absen-${month}.${day}`]: {
+      tipe,
+      time,
+    },
   };
 
-  return updateDoc(doc(firestore, "pal", email), data)
+  if (targetDay) {
+    absen[`absen-${month}.${day}.byPelatih`] = true;
+  }
+
+  return updateDoc(doc(firestore, "pal", email), absen)
     .then(() => {
       return NextResponse.json(
         {

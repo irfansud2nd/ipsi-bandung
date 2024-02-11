@@ -12,6 +12,8 @@ type InputFileProps = {
   file: File | undefined;
   errors: FormikErrors<any>;
   touched: FormikTouched<any>;
+  disabled: boolean;
+  downloadUrl: string;
   landscape?: boolean;
   under17?: boolean;
   umur?: number;
@@ -32,6 +34,8 @@ const InputFile = ({
   setFieldValue,
   errors,
   touched,
+  disabled,
+  downloadUrl,
 }: InputFileProps) => {
   const [imagePreviewSrc, setImagePreviewSrc] = useState("");
 
@@ -45,6 +49,12 @@ const InputFile = ({
     setImagePreviewSrc("");
   };
 
+  // SET PREVIEW IF DOWNLOADURL
+  useEffect(() => {
+    if (!file) setImagePreviewSrc(downloadUrl);
+  }, [downloadUrl, file]);
+
+  // VALIDATE FILE SIZE AND FORMAT
   useEffect(() => {
     const maxSize = 1 * 1024 * 1024; //1MB
     const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
@@ -68,6 +78,8 @@ const InputFile = ({
       } else {
         setImagePreviewSrc(URL.createObjectURL(file));
       }
+    } else {
+      clearInputImage();
     }
   }, [file]);
 
@@ -109,6 +121,7 @@ const InputFile = ({
           name={name}
           type="file"
           className={landscape ? "input_file_landscape" : "input_file"}
+          disabled={disabled}
         />
         <ErrorMessage name={name} component={ErrorText} />
       </div>

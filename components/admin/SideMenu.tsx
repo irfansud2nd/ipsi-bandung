@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { RiArrowLeftCircleFill } from "react-icons/ri";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { adminMenus } from "@/utils/admin/AdminConstants";
 
 const SideMenu = () => {
   const [show, setShow] = useState(true);
@@ -15,19 +16,8 @@ const SideMenu = () => {
     setActiveDir(path[2] || "dashboard");
   }, [pathname]);
 
-  const menus = [
-    {
-      name: "Dashboard",
-      link: "/admin",
-    },
-    {
-      name: "PAL",
-      link: "/admin/pal",
-    },
-  ];
-
   return (
-    <nav className="bg-gray-900 text-white px-2 py-1 -translate-x-2 rounded-tr-md">
+    <nav className="hidden sm:block bg-gray-900 text-white px-2 py-1 -translate-x-2 rounded-tr-md">
       <div className="sticky top-0">
         <div
           className={`flex justify-between items-center pb-1 ${
@@ -52,16 +42,16 @@ const SideMenu = () => {
             show ? "max-w-[200px]" : "max-w-0"
           }`}
         >
-          {menus.map((menu) => (
+          {adminMenus.map((menu) => (
             <Link
-              href={menu.link}
-              key={menu.link}
+              href={menu.href}
+              key={menu.href}
               className={`font-semibold w-full text-center ${
-                activeDir.toLowerCase() == menu.name.toLowerCase() &&
+                activeDir.toLowerCase() == menu.label.toLowerCase() &&
                 "bg-white text-gray-900 rounded-sm"
               }`}
             >
-              {menu.name}
+              {menu.label}
             </Link>
           ))}
         </div>

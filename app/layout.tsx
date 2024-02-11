@@ -25,9 +25,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <SessionProvider session={session}>
-        <body className="min-h-screen grid grid-rows-[auto_auto_1fr] w-full px-2 bg-[#F3F0E7]">
-          <NavBar />
-          <Breadcrumbs />
+        <body
+          className={`min-h-screen grid grid-rows-[auto_1fr] w-full px-2 bg-applewhite ${inter.className}`}
+        >
+          <section>
+            <NavBar />
+            <Breadcrumbs />
+          </section>
           <main>
             <ToastContainer />
             {children}

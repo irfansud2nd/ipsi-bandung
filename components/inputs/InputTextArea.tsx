@@ -7,6 +7,7 @@ type InputTextAreaProps = {
   name: string;
   errors: FormikErrors<any>;
   touched: FormikTouched<any>;
+  disabled: boolean;
 };
 
 const InputTextArea = ({
@@ -14,11 +15,13 @@ const InputTextArea = ({
   name,
   errors,
   touched,
+  disabled,
 }: InputTextAreaProps) => {
   return (
     <div className="flex flex-col w-[250px]">
       <label htmlFor={name}>{label}</label>
       <Field
+        disabled={disabled}
         name={name}
         type="text"
         as="textarea"

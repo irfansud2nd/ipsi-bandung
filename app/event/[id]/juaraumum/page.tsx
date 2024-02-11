@@ -1,5 +1,4 @@
 import JuaraUmum from "@/components/event/juaraUmum/JuaraUmum";
-import { events } from "@/utils/event/eventConstants";
 import { getEventTitle } from "@/utils/shared/functions";
 import { Metadata } from "next";
 

@@ -1,3 +1,4 @@
+import IsLoggedIn from "@/components/auth/IsLoggedIn";
 import Pendaftaran from "@/components/pendaftaran/Pendaftaran";
 import UnderConstruction from "@/components/utils/UnderConstruction";
 import { getEventTitle } from "@/utils/shared/functions";
@@ -10,19 +11,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   return {
     title: `Halaman Pendaftaran ${getEventTitle(params.id)}`,
-    description: "Rekapitulasi Perolehan Medali - IPSI Kota Bandung",
+    description: "Halaman Pendaftaran - IPSI Kota Bandung",
   };
 }
-
 const page = ({ params }: { params: { id: string } }) => {
   return <UnderConstruction />;
   return (
-    <div className="w-full h-full">
-      <h1 className="page_title">
-        Halaman Pendaftaran - {getEventTitle(params.id)}
-      </h1>
-      <Pendaftaran />
-    </div>
+    <IsLoggedIn>
+      <div className="w-full h-full grid grid-rows-[auto_1fr]">
+        <h1 className="page_title">
+          Halaman Pendaftaran - {getEventTitle(params.id)}
+        </h1>
+        <Pendaftaran />
+      </div>
+    </IsLoggedIn>
   );
 };
 

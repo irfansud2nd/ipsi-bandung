@@ -1,3 +1,4 @@
+import { FormikState } from "formik";
 import * as Yup from "yup";
 
 // KONTINGEN STATE
@@ -10,10 +11,8 @@ export const kontingenInitialValue: KontingenState = {
   pesertas: [],
   officials: [],
   idPembayaran: [],
-  unconfirmedPembayaran: [],
-  confirmedPembayaran: [],
-  infoPembayaran: [],
-  infoKonfirmasi: [],
+  events: [],
+  totalPembayaran: 0,
 };
 
 // KONTINGEN STATE
@@ -26,23 +25,12 @@ export type KontingenState = {
   pesertas: string[] | [];
   officials: string[] | [];
   idPembayaran: string[];
-  unconfirmedPembayaran: string[];
-  confirmedPembayaran: string[];
-  infoPembayaran: {
-    idPembayaran: string;
-    nominal: string;
-    noHp: string;
-    waktu: string;
-    buktiUrl: string;
-  }[];
-  infoKonfirmasi: {
-    idPembayaran: string;
-    nama: string;
-    email: string;
-    waktu: string;
-  }[];
+  totalPembayaran: number;
+  events: string[];
+  [key: string]: any;
 };
 
+// KONTINGEN VALIDATION SCHEMA
 export const kontingenValidationSchema = Yup.object({
   namaKontingen: Yup.string().required("Tolong lengkapi nama kontingen"),
 });

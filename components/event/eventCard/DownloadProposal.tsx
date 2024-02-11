@@ -15,7 +15,6 @@ const DownloadProposal = ({ id }: { id: string }) => {
       .get(`/api/proposal/${id}`)
       .then((res) => setDownloadUrl(res.data.downloadUrl))
       .catch((error) => {
-        console.log(error);
         setError(error);
       });
   };

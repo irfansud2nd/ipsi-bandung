@@ -15,11 +15,13 @@ import {
 import { tipeKehadiran } from "@/utils/pal/absen/PalAbsenConstants";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import Accordion from "@/components/utils/Accordion";
+import Switch from "react-switch";
 
 const RekapAbsen = () => {
   const [month, setMonth] = useState(getToday("month+year"));
   const [pals, setPals] = useState<PalState[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showTimestamp, setShowTimestamp] = useState(false);
 
   const toastId = useRef(null);
   const tabelRef = useRef(null);
@@ -49,14 +51,18 @@ const RekapAbsen = () => {
 
   return (
     <div className="max-w-full overflow-x-auto">
-      <div className="flex gap-1">
+      <div className="flex gap-1 flex-wrap">
         <input
           type="month"
           onChange={(e) => setMonth(e.target.value)}
           value={month}
           className="rounded-md px-1"
         />
-        <button className="btn_green" onClick={getData} disabled={loading}>
+        <button
+          className="btn_green text-sm"
+          onClick={getData}
+          disabled={loading}
+        >
           Refresh
         </button>
         {loading && (
@@ -65,22 +71,23 @@ const RekapAbsen = () => {
             <InlineLoading />
           </p>
         )}
+        <div className="flex gap-1 items-center">
+          <p>Tampilkan Waktu</p>
+          <Switch
+            onChange={() => setShowTimestamp((prev) => !prev)}
+            checked={showTimestamp}
+            offColor="#ef4444"
+          />
+        </div>
         {/* <IsAuthorized access="master" returnNull>
-          | <AbsenCompresser pals={pals} />
-        </IsAuthorized> */}
+            | <AbsenCompresser pals={pals} />
+          </IsAuthorized> */}
       </div>
       {!pals.length ? null : (
         <>
-          <button className="btn_green" onClick={onDownload}>
+          <button className="btn_green text-sm" onClick={onDownload}>
             Download
           </button>
-          <div className="flex gap-1">
-            {tipeKehadiran.map((item) => (
-              <p className="capitalize" key={item}>
-                <TandaAbsen as="span" ket={item} /> = {item}
-              </p>
-            ))}
-          </div>
           <div className="max-w-full overflow-x-auto">
             <table className="text-sm w-full" ref={tabelRef}>
               <thead>
@@ -101,9 +108,23 @@ const RekapAbsen = () => {
                   <tr key={item.email}>
                     <td>{i + 1}</td>
                     <td className="whitespace-nowrap">{item.namaLengkap}</td>
-                    {getDaysInMonth(month).map((day) =>
-                      checkAbsen(item, month, day)
-                    )}
+                    {getDaysInMonth(month).map((day) => {
+                      const { tipe, time, byPelatih } = checkAbsen(
+                        item,
+                        month,
+                        day
+                      );
+                      return (
+                        <TandaAbsen
+                          as="td"
+                          key={day}
+                          ket={tipe}
+                          time={time}
+                          showTimestamp={showTimestamp}
+                          byAdmin={byPelatih}
+                        />
+                      );
+                    })}
                     {sumAbsen(item, month)}
                   </tr>
                 ))}
@@ -111,8 +132,21 @@ const RekapAbsen = () => {
             </table>
           </div>
 
-          <Accordion title="Edit & Manual" className="mt-1 w-fit">
+          <Accordion title="Edit & Absen Manual" className="mt-1 w-fit">
             <AbsenEditor data={pals} month={month} setPals={setPals} />
+          </Accordion>
+          <Accordion title="Keterangan" className="mt-1 w-fit">
+            <div className="flex gap-1 whitespace-nowrap flex-wrap">
+              {tipeKehadiran.map((item) => (
+                <p className="capitalize" key={item}>
+                  <TandaAbsen as="span" ket={item} time="-" /> = {item}
+                </p>
+              ))}
+              <p>
+                <TandaAbsen as="span" ket="hadir" byAdmin time="-" /> = Oleh
+                pelatih
+              </p>
+            </div>
           </Accordion>
         </>
       )}

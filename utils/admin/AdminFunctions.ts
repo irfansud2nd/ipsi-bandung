@@ -5,7 +5,11 @@ import { firestore } from "../firebase/firebase";
 // IS ADMIN
 export const isAdmin = async (email: string) => {
   return getDocs(
-    query(collection(firestore, "admin"), where("email", "==", email))
+    query(
+      collection(firestore, "admin"),
+      where("email", "==", email),
+      where("verified", "==", true)
+    )
   ).then((querySnapshot) => {
     if (querySnapshot.empty) {
       return false;

@@ -163,10 +163,8 @@ export type PesertaState = {
   downloadKtpUrl: string;
   email: string;
   noHp: string;
-  pembayaran: boolean;
   idPembayaran: string;
-  konfirmasi: boolean;
-  idKonfirmasi: string;
+  events: string[];
 };
 
 // PESERTA INITIAL VALUE
@@ -199,10 +197,8 @@ export const pesertaInitialValue: PesertaState = {
   downloadKtpUrl: "",
   email: "",
   noHp: "",
-  pembayaran: false,
   idPembayaran: "",
-  konfirmasi: false,
-  idKonfirmasi: "",
+  events: [],
 };
 
 // PESERTA VALIDATION SCHEMA
@@ -225,4 +221,7 @@ export const pesertaValidationSchema = Yup.object({
   ktpFile: Yup.string().required("Tolong lengkapi file KTP"),
   kkFile: Yup.string().required("Tolong lengkapi file KK"),
   fotoFile: Yup.string().required("Tolong lengkapi file Pas Foto"),
+  namaKontingen: Yup.string().required(
+    "Tolong daftarkan kontingen terlebih dahulu"
+  ),
 });

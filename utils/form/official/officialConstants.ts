@@ -1,3 +1,4 @@
+import { FormikState } from "formik";
 import * as Yup from "yup";
 
 // JENIS KELAMIN DEWASA
@@ -10,36 +11,41 @@ export const jabatanOfficials = ["Official", "Manajer Tim", "Pelatih"];
 export const officialInitialValue: OfficialState = {
   id: "",
   creatorEmail: "",
-  creatorUid: "",
   waktuPendaftaran: "",
   waktuPerubahan: "",
   namaLengkap: "",
   jenisKelamin: jenisKelaminDewasa[0],
   jabatan: jabatanOfficials[0],
   idKontingen: "",
+  namaKontingen: "",
   fotoFile: undefined,
   fotoUrl: "",
   downloadFotoUrl: "",
+  events: [],
 };
 
 // OFFICIAL TYPE
 export type OfficialState = {
   id: string;
   creatorEmail: string;
-  creatorUid: string;
   waktuPendaftaran: number | string;
   waktuPerubahan: number | string;
   namaLengkap: string;
   jenisKelamin: string;
   jabatan: string;
   idKontingen: string;
+  namaKontingen: string;
   fotoFile: File | undefined;
   fotoUrl: string;
   downloadFotoUrl: string;
+  events: string[];
 };
 
-// OFFICIAL VALIDATION SCHEMA
+// OFFICIAL VALIDATION SCHEMA WITH KONTINGEN
 export const officialValidationSchema = Yup.object({
   namaLengkap: Yup.string().required("Tolong lengkapi nama lengkap"),
   fotoFile: Yup.string().required("Tolong lengkapi file Pas Foto"),
+  namaKontingen: Yup.string().required(
+    "Tolong daftarkan kontingen terlebih dahulu"
+  ),
 });

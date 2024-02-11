@@ -9,9 +9,9 @@ export const GET = async (
   const dir = `proposals/${params.eventId}.pdf`;
 
   return getDownloadURL(ref(storage, dir))
-    .then((downloadUrl) => Response.json({ downloadUrl }, { status: 200 }))
+    .then((downloadUrl) => NextResponse.json({ downloadUrl }, { status: 200 }))
     .catch((error: StorageError) =>
-      Response.json(
+      NextResponse.json(
         { message: error.message, code: error.code },
         { status: 500 }
       )
