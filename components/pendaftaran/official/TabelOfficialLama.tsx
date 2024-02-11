@@ -1,6 +1,5 @@
 import useConfirmationRodal from "@/components/rodal/useConfirmationRodal";
 import { OfficialState } from "@/utils/form/official/officialConstants";
-import { addOfficialToEvent } from "@/utils/form/official/officialFunctions";
 import { RootState } from "@/utils/redux/store";
 import { getEventIdByPathname, isEditOnly } from "@/utils/shared/functions";
 import { usePathname } from "next/navigation";
@@ -39,14 +38,14 @@ const TabelOfficialLama = () => {
   };
 
   const addOfficial = (official: OfficialState) => {
-    setLoading(true);
-    addOfficialToEvent(
-      official,
-      eventId,
-      toastId,
-      dispatch,
-      registeredKontingen
-    ).finally(() => setLoading(false));
+    // setLoading(true);
+    // addOfficialToEvent(
+    //   official,
+    //   eventId,
+    //   toastId,
+    //   dispatch,
+    //   registeredKontingen
+    // ).finally(() => setLoading(false));
   };
 
   if (!officials.length)

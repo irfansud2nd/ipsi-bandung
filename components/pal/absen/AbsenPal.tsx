@@ -51,25 +51,8 @@ const Absen = () => {
     }
   }, [token]);
 
-  const forceHadir = () => {
-    axios
-      .patch("/api/pal/absen", {
-        email,
-        tipe: tipeKehadiran[0],
-        time: getToday("hour+minute"),
-      })
-      .catch((error) => {
-        setToken("");
-        controlToast(error.response.data.message, toastId, "error", true);
-      })
-      .finally(() => setLoading(false));
-  };
-
   return (
     <CenterBoxShadow title="Absen Atlet PAL">
-      <button onClick={forceHadir} className="btn_red">
-        Force Hadir
-      </button>
       {token ? (
         <div className="flex flex-col items-center text-2xl gap-y-3">
           {loading ? (

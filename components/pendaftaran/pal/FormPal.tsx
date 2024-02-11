@@ -74,11 +74,13 @@ const FormPal = () => {
                 name="namaLengkap"
                 errors={errors}
                 touched={touched}
+                disabled={isSubmitting}
               />
               <InputSelect
                 label="Jenis Kelamin"
                 name="jenisKelamin"
                 options={jenisKelaminAtlet}
+                disabled={isSubmitting}
               />
               <button
                 className="btn_green mt-1"
